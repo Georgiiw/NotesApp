@@ -1,0 +1,12 @@
+﻿@model NoteFormModel 
+
+<div class="row">
+	<form asp-action="Add" method="post">
+		<div class="mb-3">
+			<label asp-for="Content" class="form-label">Title</label>
+			<input asp-for="Content" class="form-control" aria-required="true">
+			<span asp-validation-for="Content" class="text-danger"></span>
+		</div>
+		<button type="submit" class="btn btn-primary" value="Add">Add Note</button>
+	</form>
+</div>
