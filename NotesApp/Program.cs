@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NotesApp.Data;
+using NotesApp.Data.Entities;
 
 namespace NotesApp
 {
@@ -16,10 +17,13 @@ namespace NotesApp
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
-
+            builder.Services.ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = "/User/Login";
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -38,7 +42,7 @@ namespace NotesApp
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
