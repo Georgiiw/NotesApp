@@ -62,5 +62,12 @@ namespace NotesApp.Core
 
             return notes;
         }
+
+        public async Task<string> GetNoteCreatorId(int noteId)
+        {
+            Note note = await this._db.Notes.FirstOrDefaultAsync(n => n.Id == noteId);
+            string creatorId = note.CreatorId.ToString();
+            return creatorId;
+        }
     }
 }

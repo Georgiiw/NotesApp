@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using NotesApp.Core;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NotesApp.Core.Interfaces;
 using NotesApp.ViewModels.Note;
 using System.Security.Claims;
 
 namespace NotesApp.Controllers
 {
+    [Authorize]
     public class NoteController : Controller
     {
         private readonly INoteService _noteService;
@@ -33,8 +34,17 @@ namespace NotesApp.Controllers
             await this._noteService.EditAsync(model);
             return RedirectToAction("Index", "Note");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete([FromRoute]int id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var creatorId = this._noteService.GetNoteCreatorId(id).Result;
+
+            if (creatorId != userId)
+            {
+                return Forbid();
+            }
             await this._noteService.DeleteAsync(id);
             return RedirectToAction("Index", "Note");
         }
