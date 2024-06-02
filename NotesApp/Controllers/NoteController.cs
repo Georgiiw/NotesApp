@@ -27,6 +27,16 @@ namespace NotesApp.Controllers
             await this._noteService.AddAsync(model,userId);
             return RedirectToAction("Index", "Note");
         }
-
+        [HttpPost] 
+        public async Task<IActionResult> Edit(NoteViewModel model)
+        {
+            await this._noteService.EditAsync(model);
+            return RedirectToAction("Index", "Note");
+        }
+        public async Task<IActionResult> Delete([FromRoute]int id)
+        {
+            await this._noteService.DeleteAsync(id);
+            return RedirectToAction("Index", "Note");
+        }
     }
 }

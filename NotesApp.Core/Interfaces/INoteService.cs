@@ -8,5 +8,6 @@ namespace NotesApp.Core.Interfaces
         Task AddAsync(NoteFormModel model, Guid userId);
         Task DeleteAsync(int noteId);
         Task<IEnumerable<NoteViewModel>> GetAllAsync(Guid userId);
+        Task EditAsync(NoteViewModel model);
     }
 }

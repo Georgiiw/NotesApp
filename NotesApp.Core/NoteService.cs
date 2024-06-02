@@ -29,9 +29,21 @@ namespace NotesApp.Core
 
         public async Task DeleteAsync(int noteId)
         {
-            Note note = await this._db.Notes.FindAsync(noteId);
+            Note note = await this._db.Notes.FirstOrDefaultAsync(n => n.Id == noteId);
 
             this._db.Notes.Remove(note);
+            await this._db.SaveChangesAsync();
+        }
+
+        public async Task EditAsync(NoteViewModel model)
+        {
+            Note noteToEdit = await this._db.Notes
+                .FirstOrDefaultAsync(n => n.Id == model.Id);
+
+            noteToEdit.Title = model.Title;
+            noteToEdit.Content = model.Content;
+            noteToEdit.LastUpdatedAt = DateTime.Now;
+
             await this._db.SaveChangesAsync();
         }
 
@@ -41,6 +53,7 @@ namespace NotesApp.Core
                 .Where(n => n.CreatorId == userId)
                 .Select(n => new NoteViewModel 
                 {
+                    Id = n.Id,
                     Title = n.Title,
                     Content = n.Content,
                     CreatedAt = n.CreatedAt,
