@@ -1,4 +1,5 @@
-﻿using NotesApp.Core.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using NotesApp.Core.Interfaces;
 using NotesApp.Data;
 using NotesApp.Data.Entities;
 using NotesApp.ViewModels.Note;
@@ -16,6 +17,7 @@ namespace NotesApp.Core
         {
             Note note = new Note
             {
+                Title = model.Title,
                 Content = model.Content,
                 CreatedAt = DateTime.Now,
                 CreatorId = userId,
@@ -31,6 +33,21 @@ namespace NotesApp.Core
 
             this._db.Notes.Remove(note);
             await this._db.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<NoteViewModel>> GetAllAsync(Guid userId)
+        {
+            IEnumerable<NoteViewModel> notes = await this._db.Notes
+                .Where(n => n.CreatorId == userId)
+                .Select(n => new NoteViewModel 
+                {
+                    Title = n.Title,
+                    Content = n.Content,
+                    CreatedAt = n.CreatedAt,
+                    LastUpdatedAt = n.LastUpdatedAt,
+                }).ToListAsync();
+
+            return notes;
         }
     }
 }

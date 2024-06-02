@@ -13,16 +13,20 @@ namespace NotesApp.Controllers
         {
             _noteService = service;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            IEnumerable<NoteViewModel> notes = await this._noteService.GetAllAsync(userId);
+
+            return View( notes);
         }
         [HttpPost]
         public async Task<IActionResult> Add(NoteFormModel model)
         {
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             await this._noteService.AddAsync(model,userId);
-            return View("Index");
+            return RedirectToAction("Index", "Note");
         }
+
     }
 }

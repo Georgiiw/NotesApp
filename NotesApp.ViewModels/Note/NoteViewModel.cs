@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace NotesApp.ViewModels.Note
 {
-    public class NoteFormModel
+    public class NoteViewModel
     {
-        public Guid CreatorId { get; set; }
         public string Title { get; set; }
-        public string Content { get; set; }
+        public string? Content { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime LastUpdatedAt { get; set; }
     }
