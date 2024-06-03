@@ -27,6 +27,7 @@ namespace NotesApp
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+            builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
             builder.Services.AddScoped<INoteService, NoteService>();
             builder.Services.ConfigureApplicationCookie(config =>
             {

@@ -8,12 +8,25 @@
 {
     string offcanvasId = "offcanvas" + index;
     string offcanvasLabelId = "offcanvas" + index;
-    <p>Title :@note.Title</p>
-    <p>Content: @note.Content</p>
-    <p>-------------</p>
 
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#@offcanvasId" aria-controls="offcanvasWithBothOptions">Edit Note</button>
-    <a asp-controller="Note" asp-action="Delete" asp-route-id="@note.Id" class="btn btn-danger">Delete</a>
+    <div class="card text-center">
+        <div class="card-header">
+            Note: @index
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@note.Title</h5>
+            <p class="card-text">@note.Content</p>
+            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#@offcanvasId" aria-controls="offcanvasWithBothOptions">Edit Note</button>
+            <form asp-controller="Note" asp-action="Delete" asp-route-id="@note.Id" method="post">
+                <input type="hidden" name="id" value="@note.Id" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+        <div class="card-footer text-body-secondary">
+            <p>Last edited: @(note.LastUpdatedAt.Year > 2000 ? note.LastUpdatedAt : note.CreatedAt)</p>
+        </div>
+    </div>
+
     <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="@offcanvasLabelId" aria-labelledby="offcanvasWithBothOptionsLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="@note.">New Note</h5>
