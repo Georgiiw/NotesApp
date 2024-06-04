@@ -18,5 +18,37 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: blanchedalmond;
+}
+
+/*---NoteCard---*/
+.card {
+    width: 300px;
+    border: solid 1px;
+    border-radius: 10px;
+    box-shadow: initial;
+    margin: 10px;
+}
+.card-title {
+    cursor: pointer;
+    font-size: 20px;
+    text-align: center;
+}
+.card-content {
+    padding: 15px;
+}
+.card-content p {
+    text-align: center;
+    padding: 10px;
+
+}
+.card-content button {
+    margin-left: 25px;
+}
+.note-btn {
+    border: solid 2px;
+    border-radius: 5px;
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
 }
