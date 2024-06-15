@@ -52,3 +52,17 @@ body {
     border-top-right-radius: 5px !important;
     border-bottom-right-radius: 5px !important;
 }
+.form-btn {
+    border: solid 2px;
+    border-radius: 5px;
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+    padding: 8px;
+}
+#register-form {
+    display: grid;
+    row-gap: 5px;
+    font-size: 100%;
+    text-align: center;
+    margin: auto
+}

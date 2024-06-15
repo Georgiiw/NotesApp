@@ -1,13 +1,13 @@
 ﻿@model RegisterFormModel
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Sign up";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 style="text-align: center">@ViewData["Title"]</h1>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" id="register-form">
         <form id="registerForm" method="post">
             <h2>Create a new account.</h2>
             <hr />       
@@ -26,7 +26,7 @@
                 <label asp-for="@Model.ConfirmPassword">Confirm Password</label>
                 <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
             </div>          
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button type="submit" class="form-btn" style="width: 150px;">Register</button>
         </form>
     </div>
 </div>

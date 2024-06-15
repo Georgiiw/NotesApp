@@ -5,9 +5,10 @@
 }
 <h1 style="text-align:center;">My notes.</h1>
 <div class="container" style="justify-content:center; display:grid">
-    <div class="card">
+    <div class="card" style="padding: 10px;">
         <div class="card-content-new-note" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-            <h5 class="card-title">Add note</h5>
+            <h5 class="card-title">Add new note</h5>
+            <h5 class="card-title" ><i class="bi bi-plus-circle"></i></h5>
         </div>
     </div>
     @foreach (var note in Model)

@@ -24,14 +24,22 @@ namespace NotesApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(NoteFormModel model)
         {
-            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            await this._noteService.AddAsync(model,userId);
+            if (ModelState.IsValid)
+            {
+                Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                await this._noteService.AddAsync(model,userId);             
+                TempData["SuccessMessage"] = "Note added successfully!";
+            }
             return RedirectToAction("Index", "Note");
         }
         [HttpPost] 
         public async Task<IActionResult> Edit(NoteViewModel model)
         {
-            await this._noteService.EditAsync(model);
+            if (ModelState.IsValid)
+            {
+                await this._noteService.EditAsync(model);
+                TempData["SuccessMessage"] = "Note edited successfully!";
+            }
             return RedirectToAction("Index", "Note");
         }
         [HttpPost]
@@ -46,6 +54,7 @@ namespace NotesApp.Controllers
                 return Forbid();
             }
             await this._noteService.DeleteAsync(id);
+            TempData["SuccessMessage"] = "Note deleted successfully!";
             return RedirectToAction("Index", "Note");
         }
     }
